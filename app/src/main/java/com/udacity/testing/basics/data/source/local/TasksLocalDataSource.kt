@@ -3,10 +3,8 @@ package com.udacity.testing.basics.data.source.local
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.udacity.testing.basics.data.Result
-import com.example.android.architecture.blueprints.todoapp.data.Result.Error
-import com.example.android.architecture.blueprints.todoapp.data.Result.Success
 import com.udacity.testing.basics.data.Task
-import com.example.android.architecture.blueprints.todoapp.data.source.TasksDataSource
+import com.udacity.testing.basics.data.source.TasksDataSource
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -21,13 +19,13 @@ class TasksLocalDataSource internal constructor(
 
     override fun observeTasks(): LiveData<Result<List<Task>>> {
         return tasksDao.observeTasks().map {
-            Success(it)
+            Result.Success(it)
         }
     }
 
     override fun observeTask(taskId: String): LiveData<Result<Task>> {
         return tasksDao.observeTaskById(taskId).map {
-            Success(it)
+            Result.Success(it)
         }
     }
 
@@ -41,9 +39,9 @@ class TasksLocalDataSource internal constructor(
 
     override suspend fun getTasks(): Result<List<Task>> = withContext(ioDispatcher) {
         return@withContext try {
-            Success(tasksDao.getTasks())
+            Result.Success(tasksDao.getTasks())
         } catch (e: Exception) {
-            Error(e)
+            Result.Error(e)
         }
     }
 
@@ -51,12 +49,12 @@ class TasksLocalDataSource internal constructor(
         try {
             val task = tasksDao.getTaskById(taskId)
             if (task != null) {
-                return@withContext Success(task)
+                return@withContext Result.Success(task)
             } else {
-                return@withContext Error(Exception("Task not found!"))
+                return@withContext Result.Error(Exception("Task not found!"))
             }
         } catch (e: Exception) {
-            return@withContext Error(e)
+            return@withContext Result.Error(e)
         }
     }
 

@@ -9,7 +9,6 @@ import com.udacity.testing.basics.data.Result
  */
 interface TasksDataSource {
 
-
     fun observeTasks(): LiveData<Result<List<Task>>>
 
     suspend fun getTasks(): Result<List<Task>>
