@@ -1,5 +1,7 @@
 package com.udacity.testing.basics.data
 
+import java.lang.Exception
+
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>
@@ -7,7 +9,7 @@ package com.udacity.testing.basics.data
 sealed class TaskResult<out R> {
 
     data class Success<out T>(val data: T) : TaskResult<T>()
-    data class Error(val exception: Exception) : TaskResult<Nothing>()
+    data class Error(val exception: Exception?) : TaskResult<Nothing>()
     object Loading : TaskResult<Nothing>()
 
     override fun toString(): String {
