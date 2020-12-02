@@ -2,7 +2,7 @@ package com.udacity.testing.basics.data.source.local
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
-import com.udacity.testing.basics.data.Result
+import com.udacity.testing.basics.data.TaskResult
 import com.udacity.testing.basics.data.Task
 import com.udacity.testing.basics.data.source.TasksDataSource
 import kotlinx.coroutines.CoroutineDispatcher
@@ -17,15 +17,15 @@ class TasksLocalDataSource internal constructor(
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : TasksDataSource {
 
-    override fun observeTasks(): LiveData<Result<List<Task>>> {
+    override fun observeTasks(): LiveData<TaskResult<List<Task>>> {
         return tasksDao.observeTasks().map {
-            Result.Success(it)
+            TaskResult.Success(it)
         }
     }
 
-    override fun observeTask(taskId: String): LiveData<Result<Task>> {
+    override fun observeTask(taskId: String): LiveData<TaskResult<Task>> {
         return tasksDao.observeTaskById(taskId).map {
-            Result.Success(it)
+            TaskResult.Success(it)
         }
     }
 
@@ -37,24 +37,24 @@ class TasksLocalDataSource internal constructor(
         //NO-OP
     }
 
-    override suspend fun getTasks(): Result<List<Task>> = withContext(ioDispatcher) {
+    override suspend fun getTasks(): TaskResult<List<Task>> = withContext(ioDispatcher) {
         return@withContext try {
-            Result.Success(tasksDao.getTasks())
+            TaskResult.Success(tasksDao.getTasks())
         } catch (e: Exception) {
-            Result.Error(e)
+            TaskResult.Error(e)
         }
     }
 
-    override suspend fun getTask(taskId: String): Result<Task> = withContext(ioDispatcher) {
+    override suspend fun getTask(taskId: String): TaskResult<Task> = withContext(ioDispatcher) {
         try {
             val task = tasksDao.getTaskById(taskId)
             if (task != null) {
-                return@withContext Result.Success(task)
+                return@withContext TaskResult.Success(task)
             } else {
-                return@withContext Result.Error(Exception("Task not found!"))
+                return@withContext TaskResult.Error(Exception("Task not found!"))
             }
         } catch (e: Exception) {
-            return@withContext Result.Error(e)
+            return@withContext TaskResult.Error(e)
         }
     }
 

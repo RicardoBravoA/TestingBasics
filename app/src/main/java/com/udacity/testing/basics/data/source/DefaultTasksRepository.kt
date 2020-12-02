@@ -141,7 +141,7 @@ class DefaultTasksRepository private constructor(application: Application) {
     suspend fun clearCompletedTasks() {
         coroutineScope {
             launch { tasksRemoteDataSource.clearCompletedTasks() }
-            launch { tasksLocalDataSource.clearCompletedTasks() }gi
+            launch { tasksLocalDataSource.clearCompletedTasks() }
         }
     }
 
