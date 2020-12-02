@@ -3,24 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/tasks_fragment_dest">
 
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.udacity.testing.basics.statistics.StatisticsFragment"
+        android:id="@+id/tasks_fragment_dest"
+        android:name="com.udacity.testi"
         tools:layout="@layout/fragment_statistics">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
+            android:id="@+id/action_tasksFragment_to_statisticsFragment"
+            app:destination="@id/statistics_fragment_dest" />
+        <argument
+            android:name="userMessage"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.udacity.testing.basics.SecondFragment"
-        tools:layout="@layout/fragment_second">
-
+        android:id="@+id/statistics_fragment_dest"
+        android:name="com.udacity.testing.basics.statistics.StatisticsFragment"
+        android:label="@string/app_name">
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
+            android:id="@+id/action_statisticsFragment_to_tasksFragment"
+            app:destination="@id/tasks_fragment_dest" />
     </fragment>
 </navigation>
