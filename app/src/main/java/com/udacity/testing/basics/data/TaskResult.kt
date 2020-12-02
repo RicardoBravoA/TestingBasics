@@ -9,7 +9,7 @@ import java.lang.Exception
 sealed class TaskResult<out R> {
 
     data class Success<out T>(val data: T) : TaskResult<T>()
-    data class Error(val exception: Exception?) : TaskResult<Nothing>()
+    data class Error(val exception: Exception) : TaskResult<Nothing>()
     object Loading : TaskResult<Nothing>()
 
     override fun toString(): String {

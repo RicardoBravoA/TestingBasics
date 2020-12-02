@@ -7,6 +7,7 @@ import com.udacity.testing.basics.data.Task
 import com.udacity.testing.basics.data.TaskResult
 import com.udacity.testing.basics.data.source.local.TasksLocalDataSource
 import com.udacity.testing.basics.data.source.local.TestDatabase
+import com.udacity.testing.basics.data.source.remote.TasksRemoteDataSource
 import kotlinx.coroutines.*
 
 /**
@@ -79,7 +80,7 @@ class DefaultTasksRepository private constructor(application: Application) {
         }
     }
 
-    fun observeTask(taskId: String): LiveData<Result<Task>> {
+    fun observeTask(taskId: String): LiveData<TaskResult<Task>> {
         return tasksLocalDataSource.observeTask(taskId)
     }
 
