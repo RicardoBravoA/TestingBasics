@@ -6,8 +6,6 @@
 
         <import type="android.view.View" />
 
-        <import type="androidx.core.content.ContextCompat" />
-
         <variable
             name="viewModel"
             type="com.udacity.testing.basics.tasks.TasksViewModel" />
@@ -51,7 +49,7 @@
                         android:layout_marginRight="@dimen/list_item_padding"
                         android:layout_marginBottom="@dimen/activity_vertical_margin"
                         android:gravity="center_vertical"
-                        android:text="@{context.getString(viewModel.currentFilteringLabel)}"
+                        android:text="@{String.valueOf(viewModel.currentFilteringLabel)}"
                         android:textAppearance="@style/TextAppearance.AppCompat.Title" />
 
                     <androidx.recyclerview.widget.RecyclerView
@@ -76,7 +74,7 @@
                         android:layout_height="96dp"
                         android:layout_gravity="center"
                         android:contentDescription="@string/no_tasks_image_content_description"
-                        android:src="@{ContextCompat.getDrawable(context, viewModel.noTaskIconRes)}" />
+                        app:image_resource="@{viewModel.noTaskIconRes}" />
 
                     <TextView
                         android:id="@+id/no_tasks_text"
@@ -84,7 +82,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginBottom="@dimen/list_item_padding"
-                        android:text="@{context.getString(viewModel.noTasksLabel)}" />
+                        android:text="@{String.valueOf(viewModel.noTasksLabel)}" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -99,7 +97,5 @@
             app:fabSize="normal"
             app:layout_anchor="@id/refresh_layout"
             app:layout_anchorGravity="bottom|right|end" />
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>

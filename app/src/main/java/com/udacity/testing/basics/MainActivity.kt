@@ -1,6 +1,5 @@
 package com.udacity.testing.basics
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
@@ -11,7 +10,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 
-class TasksActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var appBarConfiguration: AppBarConfiguration
@@ -21,6 +20,10 @@ class TasksActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setupNavigationDrawer()
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        /*val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        val navController: NavController = navHostFragment.navController*/
 
         val navController: NavController = findNavController(R.id.nav_host_fragment)
         appBarConfiguration =
