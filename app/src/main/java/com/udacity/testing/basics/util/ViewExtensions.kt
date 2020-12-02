@@ -5,7 +5,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.testing.basics.R
 
@@ -23,11 +22,11 @@ fun View.showSnackbar(snackbarText: String, timeLength: Int) {
  */
 fun View.setupSnackbar(
     lifecycleOwner: LifecycleOwner,
-    snackbarEvent: LiveData<Event<Int>>,
+    snackbarEvent: LiveData<SingleEvent<Int>>,
     timeLength: Int
 ) {
 
-    snackbarEvent.observe(lifecycleOwner, Observer { event ->
+    snackbarEvent.observe(lifecycleOwner, { event ->
         event.getContentIfNotHandled()?.let {
             showSnackbar(context.getString(it), timeLength)
         }
