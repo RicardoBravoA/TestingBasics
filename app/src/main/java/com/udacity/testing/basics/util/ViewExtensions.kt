@@ -1,12 +1,15 @@
 package com.udacity.testing.basics.util
 
 import android.view.View
+import android.widget.ImageView
 import androidx.core.content.ContextCompat
+import androidx.databinding.BindingAdapter
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.testing.basics.R
+
 
 /**
  * Transforms static java function Snackbar.make() to an extension function on View.
@@ -46,4 +49,9 @@ fun Fragment.setupRefreshLayout(
     scrollUpChild?.let {
         refreshLayout.scrollUpChild = it
     }
+}
+
+@BindingAdapter("image_resource")
+fun ImageView.setImageViewResource(resource: Int) {
+    setImageResource(resource)
 }
