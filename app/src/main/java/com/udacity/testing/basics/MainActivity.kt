@@ -8,6 +8,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.navigation.NavigationView
 
 class TasksActivity : AppCompatActivity() {
@@ -32,19 +33,14 @@ class TasksActivity : AppCompatActivity() {
     }
 
     override fun onSupportNavigateUp(): Boolean {
-        return findNavController(R.id.nav_host_fragment).navigateUp(appBarConfiguration)
+        return findNavController(R.id.nav_host_fragment).navigateUp()
                 || super.onSupportNavigateUp()
     }
 
     private fun setupNavigationDrawer() {
         drawerLayout = (findViewById<DrawerLayout>(R.id.drawer_layout))
             .apply {
-                setStatusBarBackground(R.color.colorPrimaryDark)
+                setStatusBarBackground(R.color.purple_700)
             }
     }
 }
-
-// Keys for navigation
-const val ADD_EDIT_RESULT_OK = Activity.RESULT_FIRST_USER + 1
-const val DELETE_RESULT_OK = Activity.RESULT_FIRST_USER + 2
-const val EDIT_RESULT_OK = Activity.RESULT_FIRST_USER + 3

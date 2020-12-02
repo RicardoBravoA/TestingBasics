@@ -8,6 +8,7 @@ import com.udacity.testing.basics.R
 import com.udacity.testing.basics.data.Task
 import com.udacity.testing.basics.data.TaskResult
 import com.udacity.testing.basics.data.source.DefaultTasksRepository
+import com.udacity.testing.basics.util.Constant
 import com.udacity.testing.basics.util.SingleEvent
 import kotlinx.coroutines.launch
 
@@ -157,9 +158,9 @@ class TasksViewModel(application: Application) : AndroidViewModel(application) {
     fun showEditResultMessage(result: Int) {
         if (resultMessageShown) return
         when (result) {
-            EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_saved_task_message)
-            ADD_EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_added_task_message)
-            DELETE_RESULT_OK -> showSnackbarMessage(R.string.successfully_deleted_task_message)
+            Constant.EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_saved_task_message)
+            Constant.ADD_EDIT_RESULT_OK -> showSnackbarMessage(R.string.successfully_added_task_message)
+            Constant.DELETE_RESULT_OK -> showSnackbarMessage(R.string.successfully_deleted_task_message)
         }
         resultMessageShown = true
     }
