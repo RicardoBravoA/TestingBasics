@@ -8,7 +8,6 @@
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.udacity.testing.basics.statistics.StatisticsFragment"
-        android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_statistics">
 
         <action
@@ -18,7 +17,6 @@
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.udacity.testing.basics.SecondFragment"
-        android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 
         <action

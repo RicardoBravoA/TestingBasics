@@ -2,22 +2,22 @@ package com.udacity.testing.basics.data.source
 
 import androidx.lifecycle.LiveData
 import com.udacity.testing.basics.data.Task
-import com.udacity.testing.basics.data.Result
+import com.udacity.testing.basics.data.TaskResult
 
 /**
  * Main entry point for accessing tasks data.
  */
 interface TasksDataSource {
 
-    fun observeTasks(): LiveData<Result<List<Task>>>
+    fun observeTasks(): LiveData<TaskResult<List<Task>>>
 
-    suspend fun getTasks(): Result<List<Task>>
+    suspend fun getTasks(): TaskResult<List<Task>>
 
     suspend fun refreshTasks()
 
     fun observeTask(taskId: String): LiveData<Result<Task>>
 
-    suspend fun getTask(taskId: String): Result<Task>
+    suspend fun getTask(taskId: String): TaskResult<Task>
 
     suspend fun refreshTask(taskId: String)
 

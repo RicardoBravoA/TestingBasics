@@ -1,5 +1,7 @@
 package com.udacity.testing.basics.statistics
 
+import com.udacity.testing.basics.data.Task
+
 /**
  * Function that does some trivial computation. Used to showcase unit tests.
  */
