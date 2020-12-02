@@ -12,13 +12,13 @@
 
         <variable
             name="viewModel"
-            type="com.example.android.architecture.blueprints.todoapp.tasks.TasksViewModel" />
+            type="com.udacity.testing.basics.tasks.TasksViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:onClick="@{() -> viewmodel.openTask(task.id)}"
+        android:onClick="@{() -> viewModel.openTask(task.id)}"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/list_item_padding"
