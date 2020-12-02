@@ -1,13 +1,13 @@
 package com.udacity.testing.basics.data.source
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import androidx.room.Room
 import com.udacity.testing.basics.data.Task
-import com.udacity.testing.basics.data.Result.Success
-import com.udacity.testing.basics.data.Result.Error
+import com.udacity.testing.basics.data.TaskResult
 import com.udacity.testing.basics.data.source.local.TasksLocalDataSource
 import com.udacity.testing.basics.data.source.local.TestDatabase
-import com.udacity.testing.basics.data.Result as Result1
+import kotlinx.coroutines.*
 
 /**
  * Concrete implementation to load tasks from the data sources into a cache.
@@ -42,12 +42,12 @@ class DefaultTasksRepository private constructor(application: Application) {
         tasksLocalDataSource = TasksLocalDataSource(database.taskDao())
     }
 
-    suspend fun getTasks(forceUpdate: Boolean = false): Result1<List<Task>> {
+    suspend fun getTasks(forceUpdate: Boolean = false): TaskResult<List<Task>> {
         if (forceUpdate) {
             try {
                 updateTasksFromRemoteDataSource()
             } catch (ex: Exception) {
-                return Result.Error(ex)
+                return TaskResult.Error(ex)
             }
         }
         return tasksLocalDataSource.getTasks()
@@ -57,7 +57,7 @@ class DefaultTasksRepository private constructor(application: Application) {
         updateTasksFromRemoteDataSource()
     }
 
-    fun observeTasks(): LiveData<Result<List<Task>>> {
+    fun observeTasks(): LiveData<TaskResult<List<Task>>> {
         return tasksLocalDataSource.observeTasks()
     }
 
@@ -68,13 +68,13 @@ class DefaultTasksRepository private constructor(application: Application) {
     private suspend fun updateTasksFromRemoteDataSource() {
         val remoteTasks = tasksRemoteDataSource.getTasks()
 
-        if (remoteTasks is Success) {
+        if (remoteTasks is TaskResult.Success) {
             // Real apps might want to do a proper sync.
             tasksLocalDataSource.deleteAllTasks()
             remoteTasks.data.forEach { task ->
                 tasksLocalDataSource.saveTask(task)
             }
-        } else if (remoteTasks is Result.Error) {
+        } else if (remoteTasks is TaskResult.Error) {
             throw remoteTasks.exception
         }
     }
@@ -86,7 +86,7 @@ class DefaultTasksRepository private constructor(application: Application) {
     private suspend fun updateTaskFromRemoteDataSource(taskId: String) {
         val remoteTask = tasksRemoteDataSource.getTask(taskId)
 
-        if (remoteTask is Success) {
+        if (remoteTask is TaskResult.Success) {
             tasksLocalDataSource.saveTask(remoteTask.data)
         }
     }
@@ -94,7 +94,7 @@ class DefaultTasksRepository private constructor(application: Application) {
     /**
      * Relies on [getTasks] to fetch data and picks the task with the same ID.
      */
-    suspend fun getTask(taskId: String, forceUpdate: Boolean = false): Result<Task> {
+    suspend fun getTask(taskId: String, forceUpdate: Boolean = false): TaskResult<Task> {
         if (forceUpdate) {
             updateTaskFromRemoteDataSource(taskId)
         }
@@ -117,7 +117,7 @@ class DefaultTasksRepository private constructor(application: Application) {
 
     suspend fun completeTask(taskId: String) {
         withContext(ioDispatcher) {
-            (getTaskWithId(taskId) as? Success)?.let { it ->
+            (getTaskWithId(taskId) as? TaskResult.Success)?.let { it ->
                 completeTask(it.data)
             }
         }
@@ -132,7 +132,7 @@ class DefaultTasksRepository private constructor(application: Application) {
 
     suspend fun activateTask(taskId: String) {
         withContext(ioDispatcher) {
-            (getTaskWithId(taskId) as? Success)?.let { it ->
+            (getTaskWithId(taskId) as? TaskResult.Success)?.let { it ->
                 activateTask(it.data)
             }
         }
@@ -141,7 +141,7 @@ class DefaultTasksRepository private constructor(application: Application) {
     suspend fun clearCompletedTasks() {
         coroutineScope {
             launch { tasksRemoteDataSource.clearCompletedTasks() }
-            launch { tasksLocalDataSource.clearCompletedTasks() }
+            launch { tasksLocalDataSource.clearCompletedTasks() }gi
         }
     }
 
@@ -161,7 +161,7 @@ class DefaultTasksRepository private constructor(application: Application) {
         }
     }
 
-    private suspend fun getTaskWithId(id: String): Result<Task> {
+    private suspend fun getTaskWithId(id: String): TaskResult<Task> {
         return tasksLocalDataSource.getTask(id)
     }
 }
