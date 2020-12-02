@@ -1,9 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".statistics.StatisticsFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.udacity.testing.basics.statistics.StatisticsViewModel" />
+    </data>
+
+    <com.udacity.testing.basics.util.ScrollChildSwipeRefreshLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:onRefreshListener="@{viewModel::refresh}"
+        app:refreshing="@{viewModel.dataLoading}">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
+
+            <LinearLayout
+                android:id="@+id/statistics_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility="@{viewModel.dataLoading ? View.GONE : View.VISIBLE}">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/statistics_no_tasks"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="@{viewModel.empty ? View.VISIBLE : View.GONE}" />
+
+                <TextView
+                    android:id="@+id/stats_active_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:text="@{@string/statistics_active_tasks(viewModel.activeTasksPercent)}"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="@{viewModel.empty ? View.GONE : View.VISIBLE}" />
+
+                <!-- android:paddingTop specified to temporarily work around -->
+                <!-- https://github.com/robolectric/robolectric/issues/4588 -->
+                <TextView
+                    android:id="@+id/stats_completed_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="1dp"
+                    android:text="@{@string/statistics_completed_tasks(viewModel.completedTasksPercent)}"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:visibility="@{viewModel.empty ? View.GONE : View.VISIBLE}" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </com.udacity.testing.basics.util.ScrollChildSwipeRefreshLayout>
+</layout>
