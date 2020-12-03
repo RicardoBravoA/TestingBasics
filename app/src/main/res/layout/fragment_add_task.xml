@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskViewModel" />
+            type="com.udacity.testing.basics.addtask.AddTaskViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
