@@ -45,7 +45,7 @@ class TaskDetailFragment : Fragment() {
         })
         detailViewModel.editTaskEvent.observe(viewLifecycleOwner, EventObserver {
             val action = TaskDetailFragmentDirections
-                .actionTaskDetailFragmentToAddEditTaskFragment(
+                .actionTaskDetailFragmentToAddTaskFragment(
                     args.taskId,
                     resources.getString(R.string.edit_task)
                 )
