@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.testing.basics.R
+import com.udacity.testing.basics.databinding.FragmentAddTaskBinding
 import com.udacity.testing.basics.util.Constant
 import com.udacity.testing.basics.util.EventObserver
 import com.udacity.testing.basics.util.setupRefreshLayout
@@ -20,7 +21,7 @@ import com.udacity.testing.basics.util.setupSnackbar
  */
 class AddTaskFragment : Fragment() {
 
-    private lateinit var viewDataBinding: AddtaskFragBinding
+    private lateinit var viewDataBinding: FragmentAddTaskBinding
 
     private val args: AddEditTaskFragmentArgs by navArgs()
 
@@ -31,7 +32,7 @@ class AddTaskFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val root = inflater.inflate(R.layout.fragment_add_task, container, false)
-        viewDataBinding = AddtaskFragBinding.bind(root).apply {
+        viewDataBinding = FragmentAddTaskBinding.bind(root).apply {
             this.viewModel = addViewModel
         }
         // Set the lifecycle owner to the lifecycle of the view
