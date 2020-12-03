@@ -13,6 +13,12 @@
         <action
             android:id="@+id/action_tasksFragment_to_statisticsFragment"
             app:destination="@id/statistics_fragment_dest" />
+        <action
+            android:id="@+id/action_tasksFragment_to_taskDetailFragment"
+            app:destination="@id/task_detail_fragment_dest" />
+        <action
+            android:id="@+id/action_tasksFragment_to_addTaskFragment"
+            app:destination="@id/add_task_fragment_dest" />
         <argument
             android:name="userMessage"
             android:defaultValue="0"
@@ -26,4 +32,37 @@
             android:id="@+id/action_statisticsFragment_to_tasksFragment"
             app:destination="@id/tasks_fragment_dest" />
     </fragment>
+    <fragment
+        android:id="@+id/task_detail_fragment_dest"
+        android:name="com.udacity.testing.basics.detail.TaskDetailFragment"
+        android:label="Task Details">
+        <argument
+            android:name="taskId"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_tasksFragment"
+            app:destination="@id/tasks_fragment_dest" />
+        <action
+            android:id="@+id/action_taskDetailFragment_to_addTaskFragment"
+            app:destination="@id/add_task_fragment_dest" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_task_fragment_dest"
+        android:name="com.udacity.testing.basics.addtask.AddTaskFragment"
+        android:label="{title}">
+        <argument
+            android:name="taskId"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="title"
+            app:argType="string"
+            app:nullable="false" />
+        <action
+            android:id="@+id/action_addEditTaskFragment_to_tasksFragment"
+            app:destination="@id/tasks_fragment_dest" />
+    </fragment>
+    <argument
+        android:name="userMessage"
+        android:defaultValue="0" />
 </navigation>
