@@ -14,6 +14,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.snackbar.Snackbar
 import com.udacity.testing.basics.R
 import com.udacity.testing.basics.databinding.FragmentTaskDetailBinding
+import com.udacity.testing.basics.util.Constant
 import com.udacity.testing.basics.util.EventObserver
 import com.udacity.testing.basics.util.setupRefreshLayout
 import com.udacity.testing.basics.util.setupSnackbar
@@ -37,12 +38,12 @@ class TaskDetailFragment : Fragment() {
     }
 
     private fun setupNavigation() {
-        detailViewModel.deleteTaskEvent.observe(this, EventObserver {
+        detailViewModel.deleteTaskEvent.observe(viewLifecycleOwner, EventObserver {
             val action = TaskDetailFragmentDirections
-                .actionTaskDetailFragmentToTasksFragment(DELETE_RESULT_OK)
+                .actionTaskDetailFragmentToTasksFragment(Constant.DELETE_RESULT_OK)
             findNavController().navigate(action)
         })
-        detailViewModel.editTaskEvent.observe(this, EventObserver {
+        detailViewModel.editTaskEvent.observe(viewLifecycleOwner, EventObserver {
             val action = TaskDetailFragmentDirections
                 .actionTaskDetailFragmentToAddEditTaskFragment(
                     args.taskId,
