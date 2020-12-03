@@ -122,17 +122,17 @@ class TasksFragment : Fragment() {
     }
 
     private fun navigateToAddNewTask() {
-        /*val action = TasksFragmentDirections
-            .actionTasksFragmentToAddEditTaskFragment(
+        val action = TasksFragmentDirections
+            .actionTasksFragmentToAddTaskFragment(
                 null,
                 resources.getString(R.string.add_task)
             )
-        findNavController().navigate(action)*/
+        findNavController().navigate(action)
     }
 
     private fun openTaskDetails(taskId: String) {
-       /* val action = TasksFragmentDirections.actionTasksFragmentToTaskDetailFragment(taskId)
-        findNavController().navigate(action)*/
+        val action = TasksFragmentDirections.actionTasksFragmentToTaskDetailFragment(taskId)
+        findNavController().navigate(action)
     }
 
     private fun setupListAdapter() {
