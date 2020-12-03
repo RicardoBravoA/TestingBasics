@@ -23,7 +23,7 @@ class AddTaskFragment : Fragment() {
 
     private lateinit var viewDataBinding: FragmentAddTaskBinding
 
-    private val args: AddEditTaskFragmentArgs by navArgs()
+    private val args: AddTaskFragmentArgs by navArgs()
 
     private val addViewModel by viewModels<AddTaskViewModel>()
 
@@ -54,7 +54,7 @@ class AddTaskFragment : Fragment() {
 
     private fun setupNavigation() {
         addViewModel.taskUpdatedEvent.observe(viewLifecycleOwner, EventObserver {
-            val action = AddEditTaskFragmentDirections
+            val action = AddTaskFragmentDirections
                 .actionAddEditTaskFragmentToTasksFragment(Constant.ADD_EDIT_RESULT_OK)
             findNavController().navigate(action)
         })
